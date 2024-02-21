@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import booksRoute from './routes/booksRoute.js';
 import dotenv from 'dotenv'
 import path from 'path';
+import cors from "cors";
 dotenv.config();
 const PORT = process.env.PORT;
 const mongoDBURL = process.env.mongoDBURL;
