@@ -20,10 +20,7 @@ app.use(express.json());
 
 
 // routes
-app.get('/', (req,res) =>{
-    console.log(req);
-    return res.status(234).send('Welcome');
-});
+
 
 // Middleware for parsing request body
 app.use('/books', booksRoute);
