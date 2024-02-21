@@ -18,7 +18,8 @@ const Home = () => {
       setLoading(true);
       try {
         const response = await axios.get('https://book-store-b8k4.onrender.com/books');
-        setBooks(response.data.data);
+        const data = await response.json();
+        setBooks(data.data);
         setLoading(false);
       } catch (error) {
         console.log(error);
