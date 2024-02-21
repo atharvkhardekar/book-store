@@ -20,9 +20,9 @@ const EditBook = () => {
       try {
         const response = await axios.get(`https://book-store-b8k4.onrender.com/books/${id}`);
         const d = await response.data;
-        setAuthor(d.data.data.author);
-        setPublishYear(d.data.data.publishYear);
-        setTitle(d.data.data.title);
+        setAuthor(d.data.author);
+        setPublishYear(d.data.publishYear);
+        setTitle(d.data.title);
         setLoading(false);
       } catch (error) {
         setLoading(false);
