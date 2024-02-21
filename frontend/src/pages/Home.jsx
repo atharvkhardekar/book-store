@@ -19,6 +19,7 @@ const Home = () => {
       try {
         const response = await axios.get('https://book-store-b8k4.onrender.com/books');
         const data = await response.data;
+        console.log(data)
         setBooks(data.data);
         setLoading(false);
       } catch (error) {
