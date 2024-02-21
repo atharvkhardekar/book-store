@@ -17,8 +17,8 @@ const Home = () => {
     const fetchBooks = async () => {
       setLoading(true);
       try {
-        const response = await fetch('https://book-store-b8k4.onrender.com/books');
-        const data = await response.json();
+        const response = await axios.get('https://book-store-b8k4.onrender.com/books');
+        const data = await response.data;
         setBooks(data.data);
         setLoading(false);
       } catch (error) {
