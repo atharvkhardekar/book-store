@@ -1,11 +1,9 @@
-import axios from 'axios'
-import { useSnackbar } from 'notistack'
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import BackButton from '../components/BackButton'
-import Spinner from '../components/Spinner'
-
-
+import axios from 'axios';
+import { useSnackbar } from 'notistack';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import BackButton from '../components/BackButton';
+import Spinner from '../components/Spinner';
 
 const CreateBooks = () => {
   const [title, setTitle] = useState('');
@@ -14,26 +12,25 @@ const CreateBooks = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
-  const handleSaveBook = () => {
+
+  const handleSaveBook = async () => {
     const data = {
       title,
       author,
       publishYear,
     };
     setLoading(true);
-    axios
-     .post('https://book-store-b8k4.onrender.com/books', data)
-     .then(() => {
+    try {
+      await axios.post('https://book-store-b8k4.onrender.com/books', data);
       setLoading(false);
       enqueueSnackbar('Book Created successfully', { variant: 'success' });
       navigate('/');
-     })
-     .catch((error) => {
+    } catch (error) {
       setLoading(false);
       // alert('An error happened. Pls check console');
       enqueueSnackbar('Error', { variant: 'error' });
       console.log(error);
-     });
+    }
   };
 
   return (
@@ -74,7 +71,7 @@ const CreateBooks = () => {
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CreateBooks
+export default CreateBooks;

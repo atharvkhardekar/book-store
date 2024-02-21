@@ -11,24 +11,21 @@ const DeleteBook = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { enqueueSnackbar } = useSnackbar();
-  const handleDeleteBook = () => {
+
+  const handleDeleteBook = async () => {
     setLoading(true);
-    axios
-     .delete(`https://book-store-b8k4.onrender.com/books/${id}`)
-     .then(() => {
-      // console.log("in");
+    try {
+      await axios.delete(`https://book-store-b8k4.onrender.com/books/${id}`);
       setLoading(false);
       enqueueSnackbar('Book Deleted Successfully', { variant: 'success'});
       navigate("/");
-      // console.log("out");
-     })
-     .catch((error) => {
-       setLoading(false);
-      //  alert('An error happened. Pls check console');
-       enqueueSnackbar('Error', {variant: 'error'});
-       console.log(error);
-     })
+    } catch (error) {
+      setLoading(false);
+      enqueueSnackbar('Error', {variant: 'error'});
+      console.log(error);
+    }
   };
+
   return (
     <div className='p-4'>
       <BackButton/>
@@ -42,10 +39,10 @@ const DeleteBook = () => {
           onClick={handleDeleteBook}
           >
             Yes, Delete it
-            </button>
+        </button>
       </div>
     </div>
   )
 }
 
-export default DeleteBook
+export default DeleteBook;
