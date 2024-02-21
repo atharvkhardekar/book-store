@@ -4,18 +4,25 @@ import mongoose from "mongoose";
 import booksRoute from './routes/booksRoute.js';
 import cors from 'cors';
 import dotenv from 'dotenv'
+import path from 'path';
 dotenv.config();
 const PORT = process.env.PORT;
 const mongoDBURL = process.env.mongoDBURL;
 
-console.log(PORT)
-
+const __dirname = path.resolve();
 
 const app = express();
+
+// middlewares
+app.use(express.static(path.join(__dirname, "frontend/dist")));
 app.use(cors());
-
 app.use(express.json());
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+})
 
+
+// routes
 app.get('/', (req,res) =>{
     console.log(req);
     return res.status(234).send('Welcome');
