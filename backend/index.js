@@ -13,11 +13,9 @@ const __dirname = path.resolve();
 const app = express();
 
 // middlewares
-app.use(express.static(path.join(__dirname, "frontend/dist")));
+app.use(cors());
 app.use(express.json());
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
-})
+
 
 
 // routes
@@ -28,6 +26,10 @@ app.get('/', (req,res) =>{
 
 // Middleware for parsing request body
 app.use('/books', booksRoute);
+app.use(express.static(path.join(__dirname, "frontend/dist")));
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+})
 
 
 // Middleware for handling CORS Policy
@@ -35,15 +37,15 @@ app.use('/books', booksRoute);
 
 // Option 2 : Allow Custom Origins
 // app.use(
-//      cors({
-//         origin: 'http://localhost:5173',
-//         methods: ['GET','POST','PUT','DELETE'],
-//         allowedHeaders: ['Content-Type'],
-//      })
-// );
-
-mongoose
-.connect(mongoDBURL)
+    //      cors({
+        //         origin: 'http://localhost:5173',
+        //         methods: ['GET','POST','PUT','DELETE'],
+        //         allowedHeaders: ['Content-Type'],
+        //      })
+        // );
+        
+        mongoose
+        .connect(mongoDBURL)
 .then(() => {
     console.log('App connected to database');
     app.listen(PORT, () => {
